@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 150 150" role="img" aria-label="Hangar logo">
+  <rect width="150" height="150" rx="33" fill="#12141A"/>
+  <g transform="translate(25 25)" fill="none" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M14 88 V50 A36 36 0 0 1 86 50 V88" stroke="#F6F5F1"/>
+    <path d="M38 88 V60 M62 88 V60" stroke="#F6F5F1"/>
+    <path d="M38 74 H62" stroke="#FF6A13"/>
+  </g>
+</svg>
