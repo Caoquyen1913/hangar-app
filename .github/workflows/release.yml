@@ -1,0 +1,164 @@
+name: Release
+
+# Builds Hangar from a tag of its source repository and publishes the installers here.
+# Run it from the Actions tab (Run workflow) with the tag, for example v1.4.1.
+# Needs the secret HANGAR_SOURCE_TOKEN: a fine-grained token with read-only access to the
+# contents of the source repository.
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to build (for example v1.4.1)"
+        required: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ inputs.tag }}
+
+env:
+  CARGO_TERM_COLOR: always
+  SOURCE: Caoquyen1913/Hangar
+
+jobs:
+  cli:
+    name: cli ${{ matrix.target }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: windows-latest, target: x86_64-pc-windows-msvc, ext: .exe }
+          - { os: macos-latest, target: aarch64-apple-darwin, ext: "" }
+          - { os: macos-latest, target: x86_64-apple-darwin, ext: "" }
+          - { os: ubuntu-latest, target: x86_64-unknown-linux-gnu, ext: "" }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ env.SOURCE }}
+          ref: ${{ inputs.tag }}
+          token: ${{ secrets.HANGAR_SOURCE_TOKEN }}
+          persist-credentials: false
+
+      - name: Toolchain
+        run: |
+          rustup show active-toolchain || rustup toolchain install
+          rustup target add ${{ matrix.target }}
+
+      - name: Linker (Linux)
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends clang mold
+
+      - name: Build
+        run: cargo build --release --locked -p hangar-cli --target ${{ matrix.target }}
+
+      - name: Package
+        shell: bash
+        run: |
+          name="hangar-${{ inputs.tag }}-${{ matrix.target }}"
+          mkdir "$name"
+          cp "target/${{ matrix.target }}/release/hangar${{ matrix.ext }}" "$name/"
+          cp README.md LICENSE-MIT LICENSE-APACHE "$name/"
+          if [ "${{ runner.os }}" = "Windows" ]; then
+            7z a "$name.zip" "$name" > /dev/null
+            echo "ASSET=$name.zip" >> "$GITHUB_ENV"
+          else
+            tar czf "$name.tar.gz" "$name"
+            echo "ASSET=$name.tar.gz" >> "$GITHUB_ENV"
+          fi
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cli-${{ matrix.target }}
+          path: ${{ env.ASSET }}
+
+  app:
+    name: app ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: windows-latest, formats: "nsis,wix" }
+          - { os: macos-latest, formats: "dmg" }
+          # Intel Mac (macos-latest is Apple silicon).
+          - { os: macos-15-intel, formats: "dmg" }
+          - { os: ubuntu-latest, formats: "deb,appimage" }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ env.SOURCE }}
+          ref: ${{ inputs.tag }}
+          token: ${{ secrets.HANGAR_SOURCE_TOKEN }}
+          persist-credentials: false
+
+      - name: Toolchain
+        run: rustup show active-toolchain || rustup toolchain install
+
+      - name: GPUI dependencies (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            clang mold pkg-config \
+            libxkbcommon-dev libxkbcommon-x11-dev libwayland-dev \
+            libx11-xcb-dev libxcb1-dev libvulkan-dev \
+            libfontconfig-dev libfreetype-dev \
+            libssl-dev libzstd-dev libasound2-dev \
+            libfuse2 file
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Install cargo-packager
+        run: cargo install cargo-packager --locked --version 0.11.8
+
+      - name: Package
+        shell: bash
+        env:
+          # AppImage: linuxdeploy runs on a runner without FUSE.
+          APPIMAGE_EXTRACT_AND_RUN: "1"
+        run: |
+          cargo packager --release -p hangar-app --formats ${{ matrix.formats }}
+          ls -la target/packages
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: app-${{ matrix.os }}
+          path: |
+            target/packages/*.exe
+            target/packages/*.msi
+            target/packages/*.dmg
+            target/packages/*.deb
+            target/packages/*.AppImage
+          if-no-files-found: error
+
+  release:
+    needs: [cli, app]
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ inputs.tag }}
+    steps:
+      # The publish script and the release notes (docs/releases/<tag>.md) come from the tag.
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ env.SOURCE }}
+          ref: ${{ inputs.tag }}
+          token: ${{ secrets.HANGAR_SOURCE_TOKEN }}
+          persist-credentials: false
+          sparse-checkout: |
+            .github
+            docs/releases
+
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          ls -la dist
+          .github/release-publish.sh "$GITHUB_REPOSITORY" plain

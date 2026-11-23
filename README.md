@@ -11,7 +11,9 @@ Installers for Windows (`.exe`, `.msi`), macOS (`.dmg`, Apple silicon and Intel)
 The installers are not signed yet:
 
 - **Windows:** if SmartScreen stops the installer, choose *More info*, then *Run anyway*.
-- **macOS:** the first time, right-click Hangar in Applications and choose *Open*. If macOS says the app is damaged, run `xattr -dr com.apple.quarantine /Applications/Hangar.app`.
+- **macOS:** the first time macOS blocks Hangar, open *System Settings › Privacy & Security* and choose *Open Anyway*.
+
+Releases are built by the [Release](.github/workflows/release.yml) workflow in this repository.
 - **Linux:** make the AppImage executable (`chmod +x`) and run it.
 
 This repository holds the website and the release files. Report problems in [Issues](https://github.com/Caoquyen1913/hangar-app/issues).

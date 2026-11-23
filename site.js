@@ -43,7 +43,7 @@
     "dl.mac.req": "macOS 12 trở lên",
     "dl.mac.arm": "Chip Apple (.dmg)",
     "dl.mac.intel": "Mac chip Intel (.dmg)",
-    "dl.mac.note": "Chưa notarize: lần đầu, chuột phải vào Hangar trong Applications rồi chọn Open.",
+    "dl.mac.note": "Chưa notarize: lần đầu macOS chặn Hangar, mở System Settings › Privacy & Security rồi chọn Open Anyway.",
     "dl.linux.req": "x86-64, X11 hoặc Wayland",
     "dl.linux.appimage": "AppImage",
     "dl.linux.deb": "Debian / Ubuntu (.deb)",
