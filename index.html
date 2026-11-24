@@ -3,190 +3,212 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hangar — a control tower for all your projects</title>
-<meta name="description" content="Hangar is a desktop app that keeps track of every project folder you have: what is active, what went cold, what was never pushed. Editor, Git, processes and Claude Code built in. Free for Windows, macOS and Linux.">
-<meta property="og:title" content="Hangar — a control tower for all your projects">
-<meta property="og:description" content="See which projects are flying, which went cold and which have work that was never pushed. Editor, Git, processes and Claude Code in one fast desktop app.">
-<meta property="og:image" content="dashboard.png">
+<title data-i18n="meta.home.title">Hangar: every project you started, accounted for</title>
+<meta name="description" data-i18n-content="meta.home.desc" content="Hangar is a desktop app that keeps track of every project folder you have: what is active, what went cold, what was never pushed. Editor, Git, processes and Claude Code built in. Free for Windows, macOS and Linux.">
+<meta property="og:title" content="Hangar: every project you started, accounted for">
+<meta property="og:description" content="See which projects are flying, which went cold and which hold work that was never pushed. Editor, Git, processes and Claude Code in one fast desktop app.">
+<meta property="og:image" content="shot-app.webp">
 <link rel="icon" href="logo.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <a class="skip" href="#main" data-i18n="skip">Skip to content</a>
 
 <header class="bar">
-  <a class="brand" href="#top" aria-label="Hangar home">
-    <img src="logo.svg" width="32" height="32" alt="">
-    <span>Hangar</span>
-  </a>
-  <nav aria-label="Main">
-    <a href="#features" data-i18n="nav.features">Features</a>
-    <a href="#download" data-i18n="nav.download">Download</a>
-    <a class="repo-link" href="https://github.com/Caoquyen1913/hangar-app">GitHub</a>
-    <button class="lang" type="button" aria-label="Tiếng Việt" data-lang-toggle>VI</button>
-  </nav>
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Hangar">
+      <img src="logo.svg" width="32" height="32" alt="">
+      <span>Hangar</span>
+    </a>
+    <nav aria-label="Main" data-i18n-aria="nav.label">
+      <a href="index.html" aria-current="page" data-i18n="nav.home">Product</a>
+      <a href="features.html" data-i18n="nav.features">Features</a>
+      <a href="guide.html" data-i18n="nav.guide">Guide</a>
+      <a href="index.html#download" data-i18n="nav.download">Download</a>
+    </nav>
+    <label class="lang">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+      <select data-lang aria-label="Language">
+        <option value="en">English</option>
+        <option value="vi">Tiếng Việt</option>
+        <option value="ja">日本語</option>
+        <option value="zh-CN">简体中文</option>
+      </select>
+    </label>
+  </div>
 </header>
 
 <main id="main">
-  <section class="hero" id="top">
-    <div class="hero-copy">
-      <h1 data-i18n="hero.title">Every project you started, accounted for.</h1>
-      <p class="lede" data-i18n="hero.lede">Hangar scans your project folders and tells you which ones you are working on, which ones went cold, and which ones hold work that was never committed or pushed. Then it lets you open any of them with the editor, Git, terminals and Claude Code already in place.</p>
-      <div class="cta">
-        <a class="btn primary" href="#download" data-primary-download>
-          <span data-primary-label data-i18n="hero.cta">Download Hangar</span>
-        </a>
-        <a class="btn ghost" href="#features" data-i18n="hero.source">See what it does</a>
-      </div>
-      <p class="fine" data-primary-note data-i18n="hero.fine">Free. Windows, macOS and Linux.</p>
-    </div>
-
-    <figure class="board" aria-label="Example: five projects and their status">
-      <div class="board-head">
-        <span class="board-title">Departures</span>
-        <span class="board-clock" data-clock>09:41</span>
-      </div>
-      <table>
-        <thead>
-          <tr><th scope="col">Project</th><th scope="col">Status</th><th scope="col" class="opt">Branch</th><th scope="col">Unpushed</th><th scope="col">Last seen</th></tr>
-        </thead>
-        <tbody data-board>
-          <tr><td><span class="flap">billing-api</span></td><td><span class="flap s-fly">FLYING</span></td><td class="opt"><span class="flap">main</span></td><td><span class="flap">2</span></td><td><span class="flap">5H AGO</span></td></tr>
-          <tr><td><span class="flap">landing-page</span></td><td><span class="flap s-cold">COLD</span></td><td class="opt"><span class="flap">main</span></td><td><span class="flap">-</span></td><td><span class="flap">41D AGO</span></td></tr>
-          <tr><td><span class="flap">mobile-app</span></td><td><span class="flap s-warn">UNPUSHED</span></td><td class="opt"><span class="flap">dev</span></td><td><span class="flap">7</span></td><td><span class="flap">9D AGO</span></td></tr>
-          <tr><td><span class="flap">old-prototype</span></td><td><span class="flap s-red">NO REMOTE</span></td><td class="opt"><span class="flap">master</span></td><td><span class="flap">-</span></td><td><span class="flap">320D AGO</span></td></tr>
-          <tr><td><span class="flap">scraper</span></td><td><span class="flap s-park">PARKED</span></td><td class="opt"><span class="flap">main</span></td><td><span class="flap">-</span></td><td><span class="flap">2D AGO</span></td></tr>
-        </tbody>
-      </table>
-      <figcaption data-i18n="board.caption">5 projects. 1 cold, 2 need a backup.</figcaption>
-    </figure>
-  </section>
-
-  <section class="facts" aria-label="Performance">
-    <p data-i18n="facts">Written in Rust with GPUI. Opens in under a second, idles at about 55 MB of memory, and never uploads your code anywhere.</p>
-  </section>
-
-  <section class="shot">
-    <img src="dashboard.png" width="1216" height="788" loading="lazy" alt="The Hangar dashboard: counts of flying, parked, archived and cold projects, a 26-week activity heatmap, and a list of projects that need attention.">
-  </section>
-
-  <section class="features" id="features" aria-labelledby="features-title">
-    <div class="section-head">
-      <h2 id="features-title" data-i18n="features.title">One window for the whole fleet</h2>
-      <p data-i18n="features.lede">Each project page has the tabs you would otherwise open five apps for. Hangar starts tools only for the project in front of you and stops them when you leave.</p>
-    </div>
-
-    <ol class="strips">
-      <li class="strip c-overview">
-        <span class="gate">Overview</span>
-        <div>
-          <h3 data-i18n="f1.t">Know where you left off</h3>
-          <p data-i18n="f1.d">Branch, uncommitted and unpushed work, last commit and last Claude session. Ask "What was I doing?" and Claude reads the repo and sums it up.</p>
-        </div>
-      </li>
-      <li class="strip c-code">
-        <span class="gate">Code</span>
-        <div>
-          <h3 data-i18n="f2.t">An editor that installs its own language tools</h3>
-          <p data-i18n="f2.d">Errors, completion and go to definition for 12 languages. A missing server is one click away as a language pack, kept out of your global tools. Format on save, Markdown and HTML preview.</p>
-        </div>
-      </li>
-      <li class="strip c-git">
-        <span class="gate">Git</span>
-        <div>
-          <h3 data-i18n="f3.t">Git without the guesswork</h3>
-          <p data-i18n="f3.d">Stage single hunks, commit, pull and push, resolve conflicts. Errors tell you the next step. Hangar uses your own git and never force-pushes.</p>
-        </div>
-      </li>
-      <li class="strip c-proc">
-        <span class="gate">Processes</span>
-        <div>
-          <h3 data-i18n="f4.t">Find the dev server you forgot</h3>
-          <p data-i18n="f4.d">See what runs in each project and on which port. A taken port names the process holding it. Servers left running in cold projects show up so you can stop them.</p>
-        </div>
-      </li>
-      <li class="strip c-graph">
-        <span class="gate">Graph</span>
-        <div>
-          <h3 data-i18n="f5.t">See what a change will break</h3>
-          <p data-i18n="f5.d">Definitions, callers and HTTP routes across linked projects. Saving a file that another project uses tells you where, and Claude can read the same graph.</p>
-        </div>
-      </li>
-      <li class="strip c-claude">
-        <span class="gate">Claude</span>
-        <div>
-          <h3 data-i18n="f6.t">Claude Code, with you in charge</h3>
-          <p data-i18n="f6.d">Chat in the project, approve every edit as a diff, or hand a task to an agent that works on its own branch in a separate worktree until you merge it.</p>
-        </div>
-      </li>
-      <li class="strip c-care">
-        <span class="gate">Maintenance</span>
-        <div>
-          <h3 data-i18n="f7.t">Reclaim the gigabytes</h3>
-          <p data-i18n="f7.d">Sizes of target/ and node_modules/ in projects you stopped touching, removed on a double click. Outdated and vulnerable libraries across every project.</p>
-        </div>
-      </li>
-      <li class="strip c-set">
-        <span class="gate">Settings</span>
-        <div>
-          <h3 data-i18n="f8.t">Make it yours</h3>
-          <p data-i18n="f8.d">Import the VS Code or Zed theme you already use, set font sizes, manage Claude Code plugins per project. English, Tiếng Việt, 日本語 and 简体中文.</p>
-        </div>
-      </li>
-    </ol>
-  </section>
-
-  <section class="download" id="download" aria-labelledby="download-title">
-    <div class="section-head">
-      <h2 id="download-title" data-i18n="dl.title">Download</h2>
-      <p><span data-i18n="dl.version">Latest version:</span> <strong data-version>v1.4</strong>. <a href="https://github.com/Caoquyen1913/hangar-app/releases" data-i18n="dl.all">All releases and checksums</a></p>
-    </div>
-
-    <div class="platforms">
-      <article class="platform" data-os="windows">
-        <h3>Windows</h3>
-        <p class="req" data-i18n="dl.win.req">Windows 10 or 11, 64-bit</p>
-        <a class="btn primary" data-asset="setup.exe" href="https://github.com/Caoquyen1913/hangar-app/releases/latest" data-i18n="dl.win.exe">Download installer (.exe)</a>
-        <a class="alt" data-asset=".msi" href="https://github.com/Caoquyen1913/hangar-app/releases/latest" data-i18n="dl.win.msi">MSI package</a>
-        <p class="note" data-i18n="dl.win.note">Not signed yet: if SmartScreen stops it, choose More info, then Run anyway.</p>
-      </article>
-      <article class="platform" data-os="mac">
-        <h3>macOS</h3>
-        <p class="req" data-i18n="dl.mac.req">macOS 12 or later</p>
-        <a class="btn primary" data-asset="aarch64.dmg" href="https://github.com/Caoquyen1913/hangar-app/releases/latest" data-i18n="dl.mac.arm">Apple silicon (.dmg)</a>
-        <a class="alt" data-asset="x64.dmg" href="https://github.com/Caoquyen1913/hangar-app/releases/latest" data-i18n="dl.mac.intel">Intel Mac (.dmg)</a>
-        <p class="note" data-i18n="dl.mac.note">Not notarized yet: the first time macOS blocks Hangar, open System Settings › Privacy &amp; Security and choose Open Anyway.</p>
-      </article>
-      <article class="platform" data-os="linux">
-        <h3>Linux</h3>
-        <p class="req" data-i18n="dl.linux.req">x86-64, X11 or Wayland</p>
-        <a class="btn primary" data-asset=".AppImage" href="https://github.com/Caoquyen1913/hangar-app/releases/latest" data-i18n="dl.linux.appimage">AppImage</a>
-        <a class="alt" data-asset=".deb" href="https://github.com/Caoquyen1913/hangar-app/releases/latest" data-i18n="dl.linux.deb">Debian / Ubuntu (.deb)</a>
-        <p class="note" data-i18n="dl.linux.note">Make the AppImage executable (chmod +x) and run it.</p>
-      </article>
-    </div>
-
-    <div class="extras">
+  <div class="wrap">
+    <section class="hero">
       <div>
-        <h3 data-i18n="dl.cli.t">Command-line tool</h3>
-        <p data-i18n="dl.cli.d">The same project scan in your terminal, as hangar. Prebuilt for each system on the releases page.</p>
+        <h1 data-i18n="hero.title">Every project you started, accounted for.</h1>
+        <p class="lede" data-i18n="hero.lede">Hangar scans your project folders and tells you which ones you are working on, which ones went cold, and which ones hold work that was never committed or pushed. Open any of them and the editor, Git, terminals and Claude Code are already there.</p>
+        <div class="cta">
+          <a class="btn primary" href="#download" data-primary-download>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"/><path d="m7 10 5 5 5-5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>
+            <span data-primary-label data-i18n="hero.cta">Download Hangar</span>
+          </a>
+          <a class="btn ghost" href="#tour">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+            <span data-i18n="hero.watch">Watch the tour</span>
+          </a>
+        </div>
+        <p class="fine" data-i18n="hero.fine">Free for Windows, macOS and Linux. Your code stays on your machine.</p>
       </div>
-      <div>
-        <h3 data-i18n="dl.claude.t">For the Claude tab</h3>
-        <p data-i18n="dl.claude.d">Install Claude Code and log in. The chat panel also needs Node.js and the ACP adapter:</p>
-        <pre><code>npm install -g @agentclientprotocol/claude-agent-acp</code></pre>
+
+      <figure class="board" data-i18n-aria="board.label" aria-label="Example: five projects and their status">
+        <div class="board-head">
+          <span class="board-title" data-i18n="board.title">Departures</span>
+          <span class="board-clock" data-clock>09:41</span>
+        </div>
+        <div class="board-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col" data-i18n="board.project">Project</th>
+                <th scope="col" data-i18n="board.status">Status</th>
+                <th scope="col" class="opt" data-i18n="board.branch">Branch</th>
+                <th scope="col" data-i18n="board.unpushed">Unpushed</th>
+                <th scope="col" data-i18n="board.seen">Last seen</th>
+              </tr>
+            </thead>
+            <tbody data-board>
+              <tr><td><span class="flap">billing-api</span></td><td><span class="flap s-fly" data-i18n="board.fly">Flying</span></td><td class="opt"><span class="flap">main</span></td><td><span class="flap">2</span></td><td><span class="flap" data-i18n="board.t1">5h ago</span></td></tr>
+              <tr><td><span class="flap">landing-page</span></td><td><span class="flap s-cold" data-i18n="board.cold">Cold</span></td><td class="opt"><span class="flap">main</span></td><td><span class="flap">-</span></td><td><span class="flap" data-i18n="board.t2">41d ago</span></td></tr>
+              <tr><td><span class="flap">mobile-app</span></td><td><span class="flap s-warn" data-i18n="board.unpushed_s">Unpushed</span></td><td class="opt"><span class="flap">dev</span></td><td><span class="flap">7</span></td><td><span class="flap" data-i18n="board.t3">9d ago</span></td></tr>
+              <tr><td><span class="flap">old-prototype</span></td><td><span class="flap s-red" data-i18n="board.noremote">No remote</span></td><td class="opt"><span class="flap">master</span></td><td><span class="flap">-</span></td><td><span class="flap" data-i18n="board.t4">320d ago</span></td></tr>
+              <tr><td><span class="flap">scraper</span></td><td><span class="flap s-park" data-i18n="board.park">Parked</span></td><td class="opt"><span class="flap">main</span></td><td><span class="flap">-</span></td><td><span class="flap" data-i18n="board.t5">2d ago</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <figcaption data-i18n="board.caption">5 projects. 1 went cold, 2 need a backup.</figcaption>
+      </figure>
+    </section>
+
+    <p class="facts" data-i18n="facts">Written in Rust with GPUI. Opens in under a second, idles at about 55 MB of memory, and never uploads your code anywhere.</p>
+
+    <section class="section" id="tour" aria-labelledby="tour-title">
+      <div class="section-head">
+        <h2 id="tour-title" data-i18n="tour.title">One minute with Hangar</h2>
+        <p data-i18n="tour.lede">From the board to a code map of your linked projects: know what a change will break before you make it, find out who holds your port, and let Claude Code do the edit while you approve each change.</p>
       </div>
-    </div>
-  </section>
+      <div class="tour">
+        <video controls preload="none" playsinline poster="video/poster-en.webp" width="1280" height="720" data-video>
+          <source src="video/intro-en.mp4" type="video/mp4">
+        </video>
+      </div>
+    </section>
+
+    <section class="section split" aria-labelledby="why-title">
+      <div class="section-head">
+        <h2 id="why-title" data-i18n="why.title">Projects don't end. They drift.</h2>
+        <p data-i18n="why.lede">Nobody closes a side project on purpose. It just stops getting opened, and whatever was in flight stays where you left it. Hangar notices these before they cost you anything.</p>
+      </div>
+      <ul class="signs">
+        <li class="d-warn"><p data-i18n="why.s1">Seven commits on a branch you never pushed, on a laptop you are about to replace.</p></li>
+        <li class="d-red"><p data-i18n="why.s2">A prototype with real work in it and no remote at all.</p></li>
+        <li class="d-cold"><p data-i18n="why.s3">A dev server from last month still holding port 3000.</p></li>
+        <li class="d-fly"><p data-i18n="why.s4">Six gigabytes of `node_modules` and `target` in projects you stopped touching.</p></li>
+      </ul>
+    </section>
+
+    <section class="section" aria-labelledby="how-title">
+      <div class="section-head">
+        <h2 id="how-title" data-i18n="how.title">How it works</h2>
+      </div>
+      <ol class="steps">
+        <li>
+          <h3 data-i18n="how.1t">Point it at your folders</h3>
+          <p data-i18n="how.1d">Add the folders that hold your projects. Hangar finds every repository and package up to four levels down, and nothing inside them leaves your computer.</p>
+        </li>
+        <li>
+          <h3 data-i18n="how.2t">Read the board</h3>
+          <p data-i18n="how.2d">Each project is flying, parked or archived. Flying projects untouched for 14 days turn cold, and work that is not backed up gets flagged.</p>
+        </li>
+        <li>
+          <h3 data-i18n="how.3t">Open one and get going</h3>
+          <p data-i18n="how.3d">The editor, Git, terminals, running processes and Claude Code open in that folder, with your tabs where you left them.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="section" aria-labelledby="tabs-title">
+      <div class="section-head">
+        <h2 id="tabs-title" data-i18n="tabs.title">Five tabs per project</h2>
+        <p data-i18n="tabs.lede">The tools you would otherwise open five apps for. Hangar starts them only for the project in front of you and stops them when you leave.</p>
+      </div>
+      <figure class="shot" style="margin-top:2.5rem">
+        <img src="shot-app.webp" width="1440" height="1092" loading="lazy" data-i18n-alt="shot.app" alt="A project open in Hangar: the file tree and editor in the middle, and the Claude panel on the right showing a planned edit as a diff waiting for approval.">
+      </figure>
+      <div class="tabs">
+        <div><h3 data-i18n="tabs.overview">Overview</h3><p data-i18n="tabs.overview_d">Branch, unpushed work, last session. Ask "What was I doing?"</p></div>
+        <div><h3 data-i18n="tabs.code">Code</h3><p data-i18n="tabs.code_d">Editor with language servers for 12 languages, previews and split views.</p></div>
+        <div><h3 data-i18n="tabs.git">Git</h3><p data-i18n="tabs.git_d">Stage hunks, commit, pull, push, resolve conflicts. Never force-pushes.</p></div>
+        <div><h3 data-i18n="tabs.proc">Processes</h3><p data-i18n="tabs.proc_d">What runs here, on which port, and who holds the port you need.</p></div>
+        <div><h3 data-i18n="tabs.graph">Graph</h3><p data-i18n="tabs.graph_d">Who calls what, across linked projects, and what a change will break.</p></div>
+      </div>
+      <p class="more"><a href="features.html" data-i18n="tabs.more">See every feature</a></p>
+    </section>
+
+    <section class="section" id="download" aria-labelledby="download-title">
+      <div class="section-head">
+        <h2 id="download-title" data-i18n="dl.title">Download</h2>
+        <p class="version"><span data-i18n="dl.version">Latest version:</span> <strong data-version>v1.6.0</strong>. <a href="https://github.com/Caoquyen1913/hangar-app/releases" data-i18n="dl.all">All releases and checksums</a></p>
+      </div>
+
+      <div class="platforms">
+        <article class="platform" data-os="windows">
+          <h3>Windows</h3>
+          <p class="req" data-i18n="dl.win.req">Windows 10 or 11, 64-bit</p>
+          <a class="btn primary" data-asset="setup.exe" href="https://github.com/Caoquyen1913/hangar-app/releases/latest" data-i18n="dl.win.exe">Download installer (.exe)</a>
+          <a class="alt" data-asset=".msi" href="https://github.com/Caoquyen1913/hangar-app/releases/latest" data-i18n="dl.win.msi">MSI package</a>
+          <p class="note" data-i18n="dl.win.note">Not signed yet: if SmartScreen stops it, choose More info, then Run anyway.</p>
+        </article>
+        <article class="platform" data-os="mac">
+          <h3>macOS</h3>
+          <p class="req" data-i18n="dl.mac.req">macOS 12 or later</p>
+          <a class="btn primary" data-asset="aarch64.dmg" href="https://github.com/Caoquyen1913/hangar-app/releases/latest" data-i18n="dl.mac.arm">Apple silicon (.dmg)</a>
+          <a class="alt" data-asset="x64.dmg" href="https://github.com/Caoquyen1913/hangar-app/releases/latest" data-i18n="dl.mac.intel">Intel Mac (.dmg)</a>
+          <p class="note" data-i18n="dl.mac.note">Not notarized yet: the first time macOS blocks Hangar, open System Settings › Privacy &amp; Security and choose Open Anyway.</p>
+        </article>
+        <article class="platform" data-os="linux">
+          <h3>Linux</h3>
+          <p class="req" data-i18n="dl.linux.req">x86-64, X11 or Wayland</p>
+          <a class="btn primary" data-asset=".AppImage" href="https://github.com/Caoquyen1913/hangar-app/releases/latest" data-i18n="dl.linux.appimage">AppImage</a>
+          <a class="alt" data-asset=".deb" href="https://github.com/Caoquyen1913/hangar-app/releases/latest" data-i18n="dl.linux.deb">Debian / Ubuntu (.deb)</a>
+          <p class="note" data-i18n="dl.linux.note">Make the AppImage executable (`chmod +x`) and run it.</p>
+        </article>
+      </div>
+
+      <div class="extras">
+        <div>
+          <h3 data-i18n="dl.cli.t">Command-line tool</h3>
+          <p data-i18n="dl.cli.d">The same project scan in your terminal, as `hangar`. Prebuilt for each system on the releases page.</p>
+        </div>
+        <div>
+          <h3 data-i18n="dl.claude.t">For the Claude tab</h3>
+          <p data-i18n="dl.claude.d">Install Claude Code and sign in. The chat panel also needs Node.js and the ACP adapter. The guide walks through it.</p>
+          <pre><code>npm install -g @agentclientprotocol/claude-agent-acp</code></pre>
+        </div>
+      </div>
+    </section>
+  </div>
 </main>
 
 <footer class="foot">
-  <img src="logo.svg" width="40" height="40" alt="">
-  <p data-i18n="foot">Hangar is free to use. Your projects and their data stay on your machine.</p>
-  <a href="https://github.com/Caoquyen1913/hangar-app/releases">github.com/Caoquyen1913/hangar-app</a>
+  <div class="wrap">
+    <img src="logo.svg" width="40" height="40" alt="">
+    <p data-i18n="foot">Hangar is free to use. Your projects and their data stay on your machine.</p>
+    <nav aria-label="Footer" data-i18n-aria="nav.foot">
+      <a href="features.html" data-i18n="nav.features">Features</a>
+      <a href="guide.html" data-i18n="nav.guide">Guide</a>
+      <a href="https://github.com/Caoquyen1913/hangar-app/releases" data-i18n="nav.releases">Releases</a>
+    </nav>
+  </div>
 </footer>
 
 <script src="site.js"></script>

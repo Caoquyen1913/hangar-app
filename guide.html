@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-i18n="meta.guide.title">Guide: Hangar</title>
+<meta name="description" data-i18n-content="meta.guide.desc" content="Install Hangar, add your project folders, read the board, open a project and connect Claude Code. Shortcuts and answers to common questions.">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Hangar">
+      <img src="logo.svg" width="32" height="32" alt="">
+      <span>Hangar</span>
+    </a>
+    <nav aria-label="Main" data-i18n-aria="nav.label">
+      <a href="index.html" data-i18n="nav.home">Product</a>
+      <a href="features.html" data-i18n="nav.features">Features</a>
+      <a href="guide.html" aria-current="page" data-i18n="nav.guide">Guide</a>
+      <a href="index.html#download" data-i18n="nav.download">Download</a>
+    </nav>
+    <label class="lang">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+      <select data-lang aria-label="Language">
+        <option value="en">English</option>
+        <option value="vi">Tiếng Việt</option>
+        <option value="ja">日本語</option>
+        <option value="zh-CN">简体中文</option>
+      </select>
+    </label>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap">
+    <section class="page-head">
+      <h1 data-i18n="gd.title">Getting started</h1>
+      <p class="lede" data-i18n="gd.lede">From download to your first Claude edit in about ten minutes. Each step works on its own, so stop wherever Hangar already does what you need.</p>
+    </section>
+
+    <div class="guide">
+      <aside class="toc">
+        <h2 data-i18n="gd.toc">On this page</h2>
+        <ol>
+          <li><a href="#install" data-i18n="gd.s1">Install</a></li>
+          <li><a href="#folders" data-i18n="gd.s2">Add your folders</a></li>
+          <li><a href="#board" data-i18n="gd.s3">Read the board</a></li>
+          <li><a href="#project" data-i18n="gd.s4">Open a project</a></li>
+          <li><a href="#claude" data-i18n="gd.s5">Connect Claude Code</a></li>
+          <li><a href="#links" data-i18n="gd.s6">Link projects</a></li>
+          <li><a href="#keys" data-i18n="gd.s7">Shortcuts</a></li>
+          <li><a href="#faq" data-i18n="gd.s8">Questions</a></li>
+        </ol>
+      </aside>
+
+      <div class="doc">
+        <section id="install" aria-labelledby="install-t">
+          <h2 id="install-t"><span class="n">1</span><span data-i18n="gd.s1">Install</span></h2>
+          <p data-i18n="gd.i.p1">Download the installer for your system from the [download section](index.html#download). The installers are not signed yet, so your system warns you the first time.</p>
+          <ul>
+            <li data-i18n="gd.i.win">**Windows:** run the `.exe`. If SmartScreen stops it, choose *More info*, then *Run anyway*.</li>
+            <li data-i18n="gd.i.mac">**macOS:** open the `.dmg` and drag Hangar to Applications. If macOS blocks it, open *System Settings › Privacy &amp; Security* and choose *Open Anyway*.</li>
+            <li data-i18n="gd.i.linux">**Linux:** make the AppImage executable with `chmod +x`, then run it, or install the `.deb`.</li>
+          </ul>
+          <div class="note"><p data-i18n="gd.i.note">If macOS says the app is damaged, run this once in Terminal, then open Hangar again.</p></div>
+          <pre><code>xattr -dr com.apple.quarantine /Applications/Hangar.app</code></pre>
+        </section>
+
+        <section id="folders" aria-labelledby="folders-t">
+          <h2 id="folders-t"><span class="n">2</span><span data-i18n="gd.s2">Add your folders</span></h2>
+          <p data-i18n="gd.f.p1">On first start the sidebar is empty. Click **Add folder** and pick a folder that contains your projects, such as `~/work`. Add as many as you like; you can change them later in *Settings › General*, or drop a folder onto the sidebar.</p>
+          <p data-i18n="gd.f.p2">Hangar looks up to four levels down. A folder counts as a project when it has `.git`, `package.json`, `Cargo.toml`, `pyproject.toml`, `go.mod` or a similar file. It skips `node_modules`, `target`, `dist`, `vendor` and hidden folders, and it never changes anything while scanning.</p>
+        </section>
+
+        <section id="board" aria-labelledby="board-t">
+          <h2 id="board-t"><span class="n">3</span><span data-i18n="gd.s3">Read the board</span></h2>
+          <p data-i18n="gd.b.p1">Every project gets a status. You set flying, parked or archived; Hangar works out the rest from the last commit, the newest file change and the last Claude Code session.</p>
+          <div class="table-scroll">
+            <table class="status-table">
+              <thead><tr><th scope="col" data-i18n="board.status">Status</th><th scope="col" data-i18n="gd.b.means">What it means</th></tr></thead>
+              <tbody>
+                <tr><td><span class="st" style="--c:var(--fly)" data-i18n="board.fly">Flying</span></td><td data-i18n="gd.b.fly">You are working on it. New projects start here.</td></tr>
+                <tr><td><span class="st" style="--c:var(--cold)" data-i18n="board.cold">Cold</span></td><td data-i18n="gd.b.cold">Flying, but untouched for 14 days. Change the threshold in Settings, or for one project on its Overview.</td></tr>
+                <tr><td><span class="st" style="--c:var(--park)" data-i18n="board.park">Parked</span></td><td data-i18n="gd.b.park">On hold on purpose. Parked projects never turn cold.</td></tr>
+                <tr><td><span class="st" style="--c:var(--muted)" data-i18n="gd.b.arch_s">Archived</span></td><td data-i18n="gd.b.arch">Done or dropped, with a reason. Left out of reminders and search.</td></tr>
+                <tr><td><span class="st" style="--c:var(--warn)" data-i18n="board.unpushed_s">Unpushed</span></td><td data-i18n="gd.b.unpushed">Commits that have not been pushed for more than 3 days.</td></tr>
+                <tr><td><span class="st" style="--c:var(--red)" data-i18n="board.noremote">No remote</span></td><td data-i18n="gd.b.noremote">The repository has commits but nowhere to push them. One lost disk away from gone.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p data-i18n="gd.b.p2">On Windows and macOS, closing the window keeps Hangar in the tray. It rescans every 10 minutes and sends at most one reminder a day.</p>
+        </section>
+
+        <section id="project" aria-labelledby="project-t">
+          <h2 id="project-t"><span class="n">4</span><span data-i18n="gd.s4">Open a project</span></h2>
+          <p data-i18n="gd.p.p1">Click a project in the sidebar. Its page has five tabs: **Overview**, **Code**, **Git**, **Processes** and **Graph**. Below them is a panel with the Claude chat and as many terminals as you want; drag it to the left, right or bottom.</p>
+          <ul>
+            <li data-i18n="gd.p.l1">Each project remembers its open tabs, unsaved edits, page and terminals, also after you quit.</li>
+            <li data-i18n="gd.p.l2">The Overview has a button for each `package.json` script, Cargo command, Makefile target and `justfile` recipe. Clicking one runs it and shows its output under Processes.</li>
+            <li data-i18n="gd.p.l3">Opening a file in a language without a language server shows a strip offering its language pack. Packs live next to Hangar's database and never touch your global tools.</li>
+          </ul>
+          <figure class="shot">
+            <img src="shot-code.webp" width="1168" height="636" loading="lazy" data-i18n-alt="shot.code" alt="The editor split in two: a Markdown guide rendered on the left, JavaScript on the right with a strip offering the language pack and another saying other projects use this file.">
+          </figure>
+        </section>
+
+        <section id="claude" aria-labelledby="claude-t">
+          <h2 id="claude-t"><span class="n">5</span><span data-i18n="gd.s5">Connect Claude Code</span></h2>
+          <p data-i18n="gd.c.p1">Hangar uses your own Claude Code. It talks to Anthropic exactly as it does in a terminal; Hangar adds nothing in between.</p>
+          <ul>
+            <li data-i18n="gd.c.l1">Install [Claude Code](https://docs.claude.com/en/docs/claude-code/setup) and sign in once with `claude` in a terminal.</li>
+            <li data-i18n="gd.c.l2">Install Node.js, then the adapter the chat panel uses:</li>
+          </ul>
+          <pre><code>npm install -g @agentclientprotocol/claude-agent-acp</code></pre>
+          <p data-i18n="gd.c.p2">Open a project and type in the Claude tab. Each edit Claude wants to make appears as a diff; choose **Allow once**, **Always allow** or **Reject**. Without the adapter the tab offers *claude in terminal* instead, which works the same as running `claude` yourself.</p>
+          <p data-i18n="gd.c.p3">The history button under the input lists the project's saved sessions. Pick one to continue it in the chat, or open it in a terminal.</p>
+          <figure class="shot">
+            <img src="shot-sessions.webp" width="1440" height="1092" loading="lazy" data-i18n-alt="shot.sessions" alt="The sessions list in the Claude panel: four saved sessions with their age, prompt count and branch, and buttons to open one in a terminal, rename it or delete it.">
+          </figure>
+        </section>
+
+        <section id="links" aria-labelledby="links-t">
+          <h2 id="links-t"><span class="n">6</span><span data-i18n="gd.s6">Link projects</span></h2>
+          <p data-i18n="gd.l.p1">If a front end, its API and a shared library live in separate folders, link them on the Overview. Hangar suggests links it can see in the code. Linked projects go cold together, Claude can read and edit across them from one chat, the Graph follows calls between them, and their launchers start from one place.</p>
+          <p data-i18n="gd.l.p2">To start a whole stack at once, add a launcher on the Processes tab: a named group of commands, each with its own folder and environment variables.</p>
+        </section>
+
+        <section id="keys" aria-labelledby="keys-t">
+          <h2 id="keys-t"><span class="n">7</span><span data-i18n="gd.s7">Shortcuts</span></h2>
+          <p data-i18n="gd.k.p1">On macOS use Cmd where this table says Ctrl. Inside a terminal, plain Ctrl+letter keys go to the terminal.</p>
+          <div class="table-scroll">
+            <table class="keys">
+              <thead><tr><th scope="col" data-i18n="gd.k.keys">Keys</th><th scope="col" data-i18n="gd.k.does">Does</th></tr></thead>
+              <tbody>
+                <tr><td><kbd>Ctrl</kbd> <kbd>K</kbd></td><td data-i18n="gd.k.palette">Jump to a project or file, or run a command</td></tr>
+                <tr><td><kbd>Ctrl</kbd> <kbd>L</kbd></td><td data-i18n="gd.k.claude">Ask Claude</td></tr>
+                <tr><td><kbd>Ctrl</kbd> <kbd>J</kbd></td><td data-i18n="gd.k.panel">Show or hide the panel</td></tr>
+                <tr><td><kbd>Ctrl</kbd> <kbd>B</kbd></td><td data-i18n="gd.k.sidebar">Fold or unfold the sidebar</td></tr>
+                <tr><td><kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>`</kbd></td><td data-i18n="gd.k.shell">New shell</td></tr>
+                <tr><td><kbd>Alt</kbd> <kbd>1</kbd>–<kbd>5</kbd></td><td data-i18n="gd.k.pages">Project tabs</td></tr>
+                <tr><td><kbd>Ctrl</kbd> <kbd>S</kbd></td><td data-i18n="gd.k.save">Save</td></tr>
+                <tr><td><kbd>Shift</kbd> <kbd>Alt</kbd> <kbd>F</kbd></td><td data-i18n="gd.k.format">Format the file</td></tr>
+                <tr><td><kbd>F12</kbd></td><td data-i18n="gd.k.def">Go to definition</td></tr>
+                <tr><td><kbd>Ctrl</kbd> <kbd>,</kbd></td><td data-i18n="gd.k.settings">Settings</td></tr>
+                <tr><td><kbd>Ctrl</kbd> <kbd>/</kbd></td><td data-i18n="gd.k.all">Every shortcut</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="faq" aria-labelledby="faq-t">
+          <h2 id="faq-t"><span class="n">8</span><span data-i18n="gd.s8">Questions</span></h2>
+          <div class="faq">
+            <details>
+              <summary data-i18n="gd.q1">Does Hangar upload my code?</summary>
+              <p data-i18n="gd.a1">No. Scanning, the editor, Git and the code graph all run on your machine. The app asks the npm registry once a day for the latest Claude Code version number, and language packs download only when you install them. Anything sent to Anthropic goes through your own Claude Code, when you use it.</p>
+            </details>
+            <details>
+              <summary data-i18n="gd.q2">Where does Hangar keep its data?</summary>
+              <p data-i18n="gd.a2">In one database file in your system's config folder: `%APPDATA%\Hangar` on Windows, `~/Library/Application Support/Hangar` on macOS and `~/.config/Hangar` on Linux. Language packs, logs and agent worktrees sit next to it.</p>
+            </details>
+            <details>
+              <summary data-i18n="gd.q3">Do I need Claude Code?</summary>
+              <p data-i18n="gd.a3">No. The dashboard, editor, Git, processes, graph and maintenance work without it. Claude Code adds the chat, agents, *What was I doing?* and the weekly report.</p>
+            </details>
+            <details>
+              <summary data-i18n="gd.q4">Will it touch my Git history?</summary>
+              <p data-i18n="gd.a4">Only when you click. Hangar runs your own `git`, never force-pushes, and asks twice before discarding changes. Agents work in a separate worktree on their own branch until you merge them.</p>
+            </details>
+            <details>
+              <summary data-i18n="gd.q5">How much does it cost?</summary>
+              <p data-i18n="gd.a5">Hangar is free. Claude Code is billed by Anthropic under your own plan.</p>
+            </details>
+            <details>
+              <summary data-i18n="gd.q6">Is there a command-line version?</summary>
+              <p data-i18n="gd.a6">Yes: `hangar scan` prints the same table in a terminal, and `hangar scan --json` gives it to scripts. It is on the releases page next to the app.</p>
+            </details>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <img src="logo.svg" width="40" height="40" alt="">
+    <p data-i18n="foot">Hangar is free to use. Your projects and their data stay on your machine.</p>
+    <nav aria-label="Footer" data-i18n-aria="nav.foot">
+      <a href="features.html" data-i18n="nav.features">Features</a>
+      <a href="guide.html" data-i18n="nav.guide">Guide</a>
+      <a href="https://github.com/Caoquyen1913/hangar-app/releases" data-i18n="nav.releases">Releases</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+</body>
+</html>

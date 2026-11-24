@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-i18n="meta.features.title">Features: Hangar</title>
+<meta name="description" data-i18n-content="meta.features.desc" content="What Hangar does: a dashboard of every project, an editor with language servers, Git, processes and ports, a code graph across projects, and Claude Code with every edit approved by you.">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Hangar">
+      <img src="logo.svg" width="32" height="32" alt="">
+      <span>Hangar</span>
+    </a>
+    <nav aria-label="Main" data-i18n-aria="nav.label">
+      <a href="index.html" data-i18n="nav.home">Product</a>
+      <a href="features.html" aria-current="page" data-i18n="nav.features">Features</a>
+      <a href="guide.html" data-i18n="nav.guide">Guide</a>
+      <a href="index.html#download" data-i18n="nav.download">Download</a>
+    </nav>
+    <label class="lang">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+      <select data-lang aria-label="Language">
+        <option value="en">English</option>
+        <option value="vi">Tiếng Việt</option>
+        <option value="ja">日本語</option>
+        <option value="zh-CN">简体中文</option>
+      </select>
+    </label>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap">
+    <section class="page-head">
+      <h1 data-i18n="ft.title">Everything a project needs, in one window</h1>
+      <p class="lede" data-i18n="ft.lede">Hangar watches the whole fleet from the dashboard, and gives each project its own editor, Git, processes, code graph and Claude Code. Tools start only for the project you open.</p>
+      <nav class="jump" data-i18n-aria="ft.jump" aria-label="Jump to">
+        <a href="#board" data-i18n="ft.board.tag">Dashboard</a>
+        <a href="#code" data-i18n="tabs.code">Code</a>
+        <a href="#git" data-i18n="tabs.git">Git</a>
+        <a href="#claude" data-i18n="ft.claude.tag">Claude Code</a>
+        <a href="#sessions" data-i18n="ft.sess.tag">Saved sessions</a>
+        <a href="#processes" data-i18n="tabs.proc">Processes</a>
+        <a href="#graph" data-i18n="tabs.graph">Graph</a>
+        <a href="#care" data-i18n="ft.care.tag">Maintenance</a>
+        <a href="#settings" data-i18n="ft.set.tag">Settings</a>
+      </nav>
+    </section>
+
+    <section class="feature t-board" id="board" aria-labelledby="board-t">
+      <div>
+        <span class="tag" data-i18n="ft.board.tag">Dashboard</span>
+        <h2 id="board-t" data-i18n="ft.board.t">The whole fleet at a glance</h2>
+        <p data-i18n="ft.board.d">Counts of flying, parked, archived and cold projects, a 26-week activity heatmap, and a list of what needs you, most urgent first.</p>
+        <ul class="points">
+          <li data-i18n="ft.board.p1">**Needs attention:** work not pushed for more than 3 days, repos with no remote, dev servers left running in cold projects, and build folders over 200 MB.</li>
+          <li data-i18n="ft.board.p2">**This week and last week:** hours and tokens per project, and a short weekly report Claude Code writes from your commits. You can turn the report off.</li>
+          <li data-i18n="ft.board.p3">**Ctrl+K** jumps to any project or file, and search looks through every project at once.</li>
+          <li><span data-i18n="ft.board.p4">**Sidebar groups** by folder, by linked projects or by last activity, with filters in one menu.</span></li>
+        </ul>
+      </div>
+      <figure class="shot">
+        <img src="shot-dashboard.webp" width="1440" height="1092" loading="lazy" data-i18n-alt="shot.dashboard" alt="The dashboard: six flying projects, two archived, last week's report with hours and commits per project, this week's hours, and the activity heatmap.">
+      </figure>
+    </section>
+
+    <section class="feature flip t-code" id="code" aria-labelledby="code-t">
+      <div>
+        <span class="tag" data-i18n="tabs.code">Code</span>
+        <h2 id="code-t" data-i18n="ft.code.t">An editor that installs its own language tools</h2>
+        <p data-i18n="ft.code.d">Errors, completion, hover and go to definition for 12 languages. When a language server is missing, Hangar offers it as a language pack: one click, kept apart from your global tools.</p>
+        <ul class="points">
+          <li data-i18n="ft.code.p1">**Format on save** with rustfmt, Prettier, Ruff, gofmt and others.</li>
+          <li data-i18n="ft.code.p2">**Preview** Markdown as you type and HTML in a live web view. *Pick element* sends part of a page to Claude.</li>
+          <li data-i18n="ft.code.p3">**Problems** under the editor, and *Fix with Claude* writes the prompt for you.</li>
+          <li><span data-i18n="ft.code.p4">**Split the editor** by dragging tabs, view BPMN and Mermaid diagrams, and get suggestions even without a language server.</span></li>
+        </ul>
+      </div>
+      <figure class="shot">
+        <img src="shot-code.webp" width="1168" height="636" loading="lazy" data-i18n-alt="shot.code" alt="The editor split in two: a Markdown guide rendered on the left, JavaScript on the right with a strip offering the language pack and another saying other projects use this file.">
+      </figure>
+    </section>
+
+    <section class="feature t-git" id="git" aria-labelledby="git-t">
+      <div>
+        <span class="tag" data-i18n="tabs.git">Git</span>
+        <h2 id="git-t" data-i18n="ft.git.t">Git without the guesswork</h2>
+        <p data-i18n="ft.git.d">Stage a whole file or a single hunk, commit with Ctrl+Enter, fetch, pull and push. Hangar runs your own git, so your credential helper and SSH keys work as usual.</p>
+        <ul class="points">
+          <li data-i18n="ft.git.p1">**Errors say what to do next:** a rejected push offers Pull, diverged branches offer rebase or merge.</li>
+          <li data-i18n="ft.git.p2">**Conflicts** are listed with Continue and Abort during a merge or rebase.</li>
+          <li data-i18n="ft.git.p3">**Never force-pushes,** and never asks for your password.</li>
+        </ul>
+      </div>
+      <figure class="shot">
+        <img src="shot-git.webp" width="1440" height="1092" loading="lazy" data-i18n-alt="shot.git" alt="The Git tab: a commit box, changed and untracked files, and the diff of index.html with added lines in green.">
+      </figure>
+    </section>
+
+    <section class="feature flip t-claude" id="claude" aria-labelledby="claude-t">
+      <div>
+        <span class="tag" data-i18n="ft.claude.tag">Claude Code</span>
+        <h2 id="claude-t" data-i18n="ft.claude.t">Claude Code, with you in charge</h2>
+        <p data-i18n="ft.claude.d">Chat with Claude Code inside the project. You see its thinking, its plan as a checklist, and every edit as a diff, and nothing changes until you choose Allow once, Always allow or Reject.</p>
+        <ul class="points">
+          <li data-i18n="ft.claude.p1">**What was I doing?** reads the repo and tells you where you stopped.</li>
+          <li data-i18n="ft.claude.p2">**Agents** take a task and work on their own branch in a separate worktree. Merge the result or throw it away.</li>
+          <li data-i18n="ft.claude.p3">**Linked projects** are added to the chat, so Claude can read and edit across a front end and its API.</li>
+          <li><span data-i18n="ft.claude.p4">**`/` and `@`** for commands, skills and files; pick the model and effort; see what the project's own `.claude` folder brings.</span></li>
+        </ul>
+      </div>
+      <figure class="shot">
+        <img src="shot-app.webp" width="1440" height="1092" loading="lazy" data-i18n-alt="shot.claude" alt="The Claude panel docked on the right: a request to fix rounding, Claude's plan as a checklist, and an edit to README.md shown as a diff with Allow once, Always allow and Reject buttons.">
+      </figure>
+    </section>
+
+    <section class="feature t-sessions" id="sessions" aria-labelledby="sess-t">
+      <div>
+        <span class="tag"><span data-i18n="ft.sess.tag">Saved sessions</span></span>
+        <h2 id="sess-t" data-i18n="ft.sess.t">Pick up any Claude session again</h2>
+        <p data-i18n="ft.sess.d">One history button lists the Claude Code sessions saved for this project, newest first, with their title, age, number of prompts and branch.</p>
+        <ul class="points">
+          <li data-i18n="ft.sess.p1">**Continue in the chat** and its history comes back, or open it in a terminal with `claude --resume`.</li>
+          <li data-i18n="ft.sess.p2">**Rename** a session the way `/rename` does, or delete it for good after a second click.</li>
+          <li data-i18n="ft.sess.p3">**New chat** starts fresh. Sessions from the terminal show up here too.</li>
+        </ul>
+      </div>
+      <figure class="shot">
+        <img src="shot-sessions.webp" width="1440" height="1092" loading="lazy" data-i18n-alt="shot.sessions" alt="The sessions list in the Claude panel: four saved sessions with their age, prompt count and branch, and buttons to open one in a terminal, rename it or delete it.">
+      </figure>
+    </section>
+
+    <section class="feature flip t-proc" id="processes" aria-labelledby="proc-t">
+      <div>
+        <span class="tag" data-i18n="tabs.proc">Processes</span>
+        <h2 id="proc-t" data-i18n="ft.proc.t">Find the dev server you forgot</h2>
+        <p data-i18n="ft.proc.d">See what runs in each project, on which ports, with CPU, memory and uptime, whether Hangar started it or another terminal did.</p>
+        <ul class="points">
+          <li data-i18n="ft.proc.p1">**Port already in use?** Hangar names the process holding it and offers to stop it or run on the next free port.</li>
+          <li data-i18n="ft.proc.p2">**Launchers** start a whole stack, the web and the API, with one click.</li>
+          <li data-i18n="ft.proc.p3">**Stop** ends the whole process tree, after checking it is still the process Hangar started.</li>
+        </ul>
+      </div>
+      <div class="mock" aria-hidden="true">
+        <div class="proc"><span><span class="dot"></span>npm run dev</span><span class="port">:5173</span><span class="muted">2h 14m</span></div>
+        <div class="proc"><span><span class="dot"></span>cargo run -p api</span><span class="port">:8080</span><span class="muted">2h 13m</span></div>
+        <div class="card">
+          <strong data-i18n="ft.proc.m1">Port 3000 is already in use</strong>
+          <span class="muted" data-i18n="ft.proc.m2">node (pid 4120) in landing-page holds it.</span>
+          <div class="row" style="margin-top:0.7rem">
+            <span class="chip" data-i18n="ft.proc.m3">Stop that process</span>
+            <span class="chip">PORT=3001</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="feature t-graph" id="graph" aria-labelledby="graph-t">
+      <div>
+        <span class="tag" data-i18n="tabs.graph">Graph</span>
+        <h2 id="graph-t" data-i18n="ft.graph.t">See what a change will break</h2>
+        <p data-i18n="ft.graph.d">Hangar indexes definitions, calls, imports and HTTP routes in Rust, TypeScript, JavaScript, Python and Go, for the project and the projects linked to it.</p>
+        <ul class="points">
+          <li data-i18n="ft.graph.p1">**Save a file another project uses** and a strip names every place, with a button to ask Claude to update them all.</li>
+          <li data-i18n="ft.graph.p2">**Linked projects** are suggested from path dependencies, package names and HTTP routes.</li>
+          <li data-i18n="ft.graph.p3">**Claude reads the same graph** through a built-in MCP server instead of grepping files.</li>
+          <li><span data-i18n="ft.graph.p4">**Map view** draws projects and their most used files; drag, zoom and click to open.</span></li>
+        </ul>
+      </div>
+      <div class="mock" aria-hidden="true">
+        <div class="card y">
+          <strong data-i18n="ft.graph.m1">Other projects use this file</strong>
+          <span class="muted"><code>formatInvoice</code> (web: 3) · <code>GET /api/invoices/:id</code> (mobile-app: 1)</span>
+          <div class="row" style="margin-top:0.7rem"><span class="chip" data-i18n="ft.graph.m2">Ask Claude to update them all</span></div>
+        </div>
+        <div class="proc"><span>formatInvoice</span><span class="muted" data-i18n="ft.graph.m3">4 callers</span><span class="muted">routes.js:6</span></div>
+        <div class="proc"><span>GET /api/invoices/:id</span><span class="muted" data-i18n="ft.graph.m4">route</span><span class="muted">routes.js:10</span></div>
+      </div>
+    </section>
+
+    <section class="feature flip t-care" id="care" aria-labelledby="care-t">
+      <div>
+        <span class="tag" data-i18n="ft.care.tag">Maintenance</span>
+        <h2 id="care-t" data-i18n="ft.care.t">Reclaim the gigabytes</h2>
+        <p data-i18n="ft.care.d">The size of `target` and `node_modules` in every project you stopped touching, largest first. Remove one with two clicks; Hangar never follows links and never deletes anything else.</p>
+        <ul class="points">
+          <li data-i18n="ft.care.p1">**Libraries:** outdated packages and known vulnerabilities across all projects, checked only when you click.</li>
+          <li data-i18n="ft.care.p2">**Archive with a reason,** and the graveyard card shows why projects end.</li>
+          <li data-i18n="ft.care.p3">**New project** writes a README, `CLAUDE.md`, `.gitignore` and a CI workflow for Rust, Node or Python.</li>
+        </ul>
+      </div>
+      <div class="mock" aria-hidden="true">
+        <div class="proc"><span>old-prototype / target</span><span class="muted">3.1 GB</span><span class="chip" data-i18n="ft.care.m1">Remove</span></div>
+        <div class="proc"><span>landing-page / node_modules</span><span class="muted">812 MB</span><span class="chip" data-i18n="ft.care.m1">Remove</span></div>
+        <div class="proc"><span>scraper / node_modules</span><span class="muted">404 MB</span><span class="chip" data-i18n="ft.care.m1">Remove</span></div>
+      </div>
+    </section>
+
+    <section class="feature t-set" id="settings" aria-labelledby="set-t">
+      <div>
+        <span class="tag" data-i18n="ft.set.tag">Settings</span>
+        <h2 id="set-t" data-i18n="ft.set.t">Make it yours</h2>
+        <p data-i18n="ft.set.d">Import the VS Code, Cursor or Zed theme you already use and it colours the whole window. Set text sizes, the code font and line spacing, with a live preview.</p>
+        <ul class="points">
+          <li data-i18n="ft.set.p1">**Four languages:** English, Tiếng Việt, 日本語 and 简体中文.</li>
+          <li data-i18n="ft.set.p2">**Claude Code plugins,** skills and MCP servers switched on per project.</li>
+          <li><span data-i18n="ft.set.p3">**Arrange the window:** dock the Claude panel left, right or below, fold the sidebar into a rail, and see every shortcut with Ctrl+/.</span></li>
+          <li><span data-i18n="ft.set.p4">**Sign in with a token** from `claude setup-token`, kept in the system keychain.</span></li>
+        </ul>
+      </div>
+      <div class="mock" aria-hidden="true">
+        <div class="proc"><span data-i18n="ft.set.k1">Command palette</span><span></span><span><kbd>Ctrl</kbd> <kbd>K</kbd></span></div>
+        <div class="proc"><span data-i18n="ft.set.k2">Ask Claude</span><span></span><span><kbd>Ctrl</kbd> <kbd>L</kbd></span></div>
+        <div class="proc"><span data-i18n="ft.set.k3">Show or hide the panel</span><span></span><span><kbd>Ctrl</kbd> <kbd>J</kbd></span></div>
+        <div class="proc"><span data-i18n="ft.set.k4">Split the editor</span><span></span><span><kbd>Ctrl</kbd> <kbd>\</kbd></span></div>
+        <div class="proc"><span data-i18n="ft.set.k5">All shortcuts</span><span></span><span><kbd>Ctrl</kbd> <kbd>/</kbd></span></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2 data-i18n="ft.end.t">Try it on your own folders</h2>
+        <p data-i18n="ft.end.d">Hangar is free. It reads your projects where they are and changes nothing until you ask.</p>
+      </div>
+      <div class="cta">
+        <a class="btn primary" href="index.html#download" data-i18n="hero.cta">Download Hangar</a>
+        <a class="btn ghost" href="guide.html" data-i18n="ft.end.guide">Read the guide</a>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <img src="logo.svg" width="40" height="40" alt="">
+    <p data-i18n="foot">Hangar is free to use. Your projects and their data stay on your machine.</p>
+    <nav aria-label="Footer" data-i18n-aria="nav.foot">
+      <a href="features.html" data-i18n="nav.features">Features</a>
+      <a href="guide.html" data-i18n="nav.guide">Guide</a>
+      <a href="https://github.com/Caoquyen1913/hangar-app/releases" data-i18n="nav.releases">Releases</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+</body>
+</html>

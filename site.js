@@ -1,89 +1,118 @@
-// Hangar landing page: language switch, departures-board reveal, download links from the latest release.
+// Hangar website: four languages, download links from the latest release, the departures board.
 (() => {
-  // Bản cài nằm ở repo công khai riêng (mã nguồn của Hangar là repo riêng tư).
+  // Installers live in a separate public repo (Hangar's source repo is private).
   const REPO = "Caoquyen1913/hangar-app";
+  const LANGS = ["en", "vi", "ja", "zh-CN"];
+
+  // ---------- inline markup: `code`, **bold**, *em*, [text](link) ----------
+  const TOKEN = /(`[^`]+`|\*\*.+?\*\*|\*[^*\s][^*]*\*|\[[^\]]+\]\([^)\s]+\))/g;
+  const SAFE_HREF = /^(https:\/\/|#|[a-z0-9-]+\.html(#[\w-]+)?$)/i;
+
+  function render(parent, text) {
+    parent.textContent = "";
+    for (const part of text.split(TOKEN)) {
+      if (!part) continue;
+      if (part.startsWith("`") && part.endsWith("`") && part.length > 1) {
+        const c = document.createElement("code");
+        c.textContent = part.slice(1, -1);
+        parent.append(c);
+      } else if (part.startsWith("**") && part.endsWith("**") && part.length > 4) {
+        const b = document.createElement("strong");
+        appendRendered(b, part.slice(2, -2));
+        parent.append(b);
+      } else if (part.startsWith("[") && part.endsWith(")")) {
+        const m = part.match(/^\[([^\]]+)\]\(([^)\s]+)\)$/);
+        if (m && SAFE_HREF.test(m[2])) {
+          const a = document.createElement("a");
+          a.href = m[2];
+          a.textContent = m[1];
+          parent.append(a);
+        } else {
+          parent.append(part);
+        }
+      } else if (part.startsWith("*") && part.endsWith("*") && part.length > 2) {
+        const e = document.createElement("em");
+        e.textContent = part.slice(1, -1);
+        parent.append(e);
+      } else {
+        parent.append(part);
+      }
+    }
+  }
+  function appendRendered(parent, text) {
+    const holder = document.createElement("span");
+    render(holder, text);
+    parent.append(...holder.childNodes);
+  }
 
   // ---------- language ----------
-  const VI = {
-    skip: "Bỏ qua, tới nội dung",
-    "nav.features": "Tính năng",
-    "nav.download": "Tải về",
-    "hero.title": "Mọi dự án bạn từng mở, đều nằm trong tầm mắt.",
-    "hero.lede": "Hangar quét các thư mục dự án và cho bạn biết dự án nào đang làm, dự án nào đã nguội, dự án nào còn thay đổi chưa commit hoặc chưa push. Mở dự án nào cũng có sẵn editor, Git, terminal và Claude Code.",
-    "hero.cta": "Tải Hangar",
-    "hero.source": "Xem tính năng",
-    "hero.fine": "Miễn phí. Windows, macOS và Linux.",
-    "board.caption": "5 dự án. 1 đã nguội, 2 cần sao lưu.",
-    facts: "Viết bằng Rust với GPUI. Mở trong chưa tới một giây, lúc rảnh dùng khoảng 55 MB bộ nhớ, và không bao giờ gửi mã của bạn đi đâu.",
-    "features.title": "Một cửa sổ cho cả đội bay",
-    "features.lede": "Mỗi dự án có sẵn các tab mà bình thường bạn phải mở năm ứng dụng. Hangar chỉ chạy công cụ cho dự án đang mở và tắt khi bạn rời đi.",
-    "f1.t": "Biết mình đang dừng ở đâu",
-    "f1.d": "Nhánh, thay đổi chưa commit và chưa push, commit và phiên Claude gần nhất. Bấm \"Mình đang làm gì nhỉ?\" để Claude đọc repo rồi tóm tắt.",
-    "f2.t": "Editor tự cài công cụ cho từng ngôn ngữ",
-    "f2.d": "Báo lỗi, gợi ý và đi tới định nghĩa cho 12 ngôn ngữ. Thiếu server thì cài gói ngôn ngữ bằng một cú bấm, không đụng công cụ cài toàn máy. Format khi lưu, xem trước Markdown và HTML.",
-    "f3.t": "Git không phải đoán",
-    "f3.d": "Stage từng đoạn, commit, pull và push, gỡ xung đột. Báo lỗi kèm bước tiếp theo. Hangar dùng chính git của bạn và không bao giờ force-push.",
-    "f4.t": "Tìm ra dev server bạn bỏ quên",
-    "f4.d": "Thấy tiến trình nào đang chạy trong từng dự án và ở port nào. Port bị chiếm thì biết tiến trình nào giữ nó. Server còn chạy trong dự án đã nguội hiện ra để bạn tắt.",
-    "f5.t": "Biết trước thay đổi sẽ ảnh hưởng tới đâu",
-    "f5.d": "Định nghĩa, nơi gọi và route HTTP xuyên các dự án liên kết. Lưu một file mà dự án khác đang dùng thì Hangar chỉ ra chỗ nào, và Claude đọc được cùng bản đồ đó.",
-    "f6.t": "Claude Code, bạn vẫn cầm lái",
-    "f6.d": "Trò chuyện ngay trong dự án, duyệt từng thay đổi dưới dạng diff, hoặc giao việc cho agent làm trên nhánh riêng trong worktree riêng cho tới khi bạn merge.",
-    "f7.t": "Lấy lại hàng chục GB",
-    "f7.d": "Dung lượng target/ và node_modules/ ở các dự án bạn không còn đụng tới, xóa bằng hai cú bấm. Thư viện cũ và có lỗ hổng trên mọi dự án.",
-    "f8.t": "Chỉnh theo ý bạn",
-    "f8.d": "Nhập theme VS Code hoặc Zed bạn đang dùng, chỉnh cỡ chữ, quản lý plugin Claude Code cho từng dự án. English, Tiếng Việt, 日本語 và 简体中文.",
-    "dl.title": "Tải về",
-    "dl.version": "Bản mới nhất:",
-    "dl.all": "Mọi bản phát hành và mã kiểm tra",
-    "dl.win.req": "Windows 10 hoặc 11, 64-bit",
-    "dl.win.exe": "Tải bộ cài (.exe)",
-    "dl.win.msi": "Gói MSI",
-    "dl.win.note": "Chưa ký số: nếu SmartScreen chặn, chọn More info rồi Run anyway.",
-    "dl.mac.req": "macOS 12 trở lên",
-    "dl.mac.arm": "Chip Apple (.dmg)",
-    "dl.mac.intel": "Mac chip Intel (.dmg)",
-    "dl.mac.note": "Chưa notarize: lần đầu macOS chặn Hangar, mở System Settings › Privacy & Security rồi chọn Open Anyway.",
-    "dl.linux.req": "x86-64, X11 hoặc Wayland",
-    "dl.linux.appimage": "AppImage",
-    "dl.linux.deb": "Debian / Ubuntu (.deb)",
-    "dl.linux.note": "Cấp quyền chạy cho AppImage (chmod +x) rồi mở.",
-    "dl.cli.t": "Công cụ dòng lệnh",
-    "dl.cli.d": "Cùng bản quét dự án ngay trong terminal, lệnh hangar. Có sẵn cho từng hệ điều hành ở trang phát hành.",
-    "dl.claude.t": "Cho tab Claude",
-    "dl.claude.d": "Cài Claude Code và đăng nhập. Khung trò chuyện cần thêm Node.js và adapter ACP:",
-    foot: "Hangar dùng miễn phí. Dự án và dữ liệu của bạn chỉ nằm trên máy bạn.",
-  };
-  const DL_VI = { windows: "Tải cho Windows", mac: "Tải cho macOS", linux: "Tải cho Linux" };
-  const DL_EN = { windows: "Download for Windows", mac: "Download for macOS", linux: "Download for Linux" };
+  const texts = [...document.querySelectorAll("[data-i18n]")];
+  const attrs = [
+    ["data-i18n-alt", "alt"],
+    ["data-i18n-aria", "aria-label"],
+    ["data-i18n-content", "content"],
+  ].flatMap(([key, attr]) =>
+    [...document.querySelectorAll(`[${key}]`)].map((el) => ({ el, attr, id: el.getAttribute(key) })),
+  );
+  const EN = {};
+  for (const n of texts) EN[n.dataset.i18n] ??= n.textContent.trim().replace(/\s+/g, " ");
+  for (const a of attrs) EN[a.id] ??= a.el.getAttribute(a.attr);
 
-  const nodes = [...document.querySelectorAll("[data-i18n]")];
-  const EN = Object.fromEntries(nodes.map((n) => [n.dataset.i18n, n.textContent]));
-  const toggle = document.querySelector("[data-lang-toggle]");
+  const DL = {
+    en: { windows: "Download for Windows", mac: "Download for macOS", linux: "Download for Linux" },
+  };
+  const dicts = { en: {} };
+  const select = document.querySelector("[data-lang]");
   let lang = "en";
+  let generation = 0;
 
   const store = {
     get() { try { return localStorage.getItem("hangar-lang"); } catch { return null; } },
     set(v) { try { localStorage.setItem("hangar-lang", v); } catch { /* private mode */ } },
   };
 
-  function setLang(next) {
-    lang = next;
-    const dict = next === "vi" ? VI : EN;
-    for (const n of nodes) {
-      const text = dict[n.dataset.i18n];
-      if (text) n.textContent = text;
+  async function load(code) {
+    if (dicts[code]) return dicts[code];
+    try {
+      const res = await fetch(`i18n/${code}.json`);
+      dicts[code] = res.ok ? await res.json() : {};
+    } catch {
+      dicts[code] = {};
     }
-    document.documentElement.lang = next;
-    toggle.textContent = next === "vi" ? "EN" : "VI";
-    toggle.setAttribute("aria-label", next === "vi" ? "English" : "Tiếng Việt");
-    labelPrimary();
+    return dicts[code];
   }
 
-  toggle.addEventListener("click", () => {
-    const next = lang === "vi" ? "en" : "vi";
-    store.set(next);
-    setLang(next);
+  async function setLang(code) {
+    const dict = await load(code);
+    lang = code;
+    generation += 1;
+    const t = (id) => dict[id] ?? EN[id];
+    for (const n of texts) render(n, t(n.dataset.i18n));
+    for (const a of attrs) a.el.setAttribute(a.attr, t(a.id));
+    document.documentElement.lang = code;
+    if (select) select.value = code;
+    labelPrimary(dict);
+    pickVideo();
+  }
+
+  function initialLang() {
+    const q = new URLSearchParams(location.search).get("lang");
+    if (LANGS.includes(q)) return q;
+    const saved = store.get();
+    if (LANGS.includes(saved)) return saved;
+    for (const l of navigator.languages || [navigator.language || ""]) {
+      const s = l.toLowerCase();
+      if (s.startsWith("vi")) return "vi";
+      if (s.startsWith("ja")) return "ja";
+      if (s.startsWith("zh")) return "zh-CN";
+      if (s.startsWith("en")) return "en";
+    }
+    return "en";
+  }
+
+  select?.addEventListener("change", () => {
+    store.set(select.value);
+    setLang(select.value);
   });
 
   // ---------- which system is this ----------
@@ -91,26 +120,28 @@
     const p = (navigator.userAgentData?.platform || navigator.platform || navigator.userAgent).toLowerCase();
     if (p.includes("win")) return "windows";
     if (p.includes("mac")) return "mac";
-    if (p.includes("linux") && !/android/.test(navigator.userAgent.toLowerCase())) return "linux";
+    if (p.includes("linux") && !/android/i.test(navigator.userAgent)) return "linux";
     return null;
   }
   const os = detectOs();
   const primary = document.querySelector("[data-primary-download]");
   const primaryLabel = document.querySelector("[data-primary-label]");
-  let primaryHref = null;
 
-  function labelPrimary() {
-    if (!os) return;
-    primaryLabel.textContent = (lang === "vi" ? DL_VI : DL_EN)[os];
+  function labelPrimary(dict) {
+    if (!os || !primaryLabel) return;
+    primaryLabel.textContent = dict[`dl.for.${os}`] ?? DL.en[os];
   }
 
   if (os) {
     document.querySelector(`.platform[data-os="${os}"]`)?.classList.add("is-you");
     document.querySelector(".platforms")?.classList.add("has-you");
   }
+  // A Mac can be Apple silicon or Intel, which the browser does not say reliably: show both.
+  if (primary && os === "mac") primary.href = "#download";
 
   // ---------- links from the latest release ----------
   async function loadRelease() {
+    if (!document.querySelector("[data-asset]")) return;
     try {
       const res = await fetch(`https://api.github.com/repos/${REPO}/releases/latest`, {
         headers: { Accept: "application/vnd.github+json" },
@@ -118,7 +149,8 @@
       if (!res.ok) return;
       const rel = await res.json();
       const assets = rel.assets || [];
-      document.querySelector("[data-version]").textContent = rel.tag_name;
+      const version = document.querySelector("[data-version]");
+      if (version && rel.tag_name) version.textContent = rel.tag_name;
       for (const a of document.querySelectorAll("[data-asset]")) {
         const hit = assets.find((x) => x.name.endsWith(a.dataset.asset));
         if (hit) {
@@ -128,43 +160,56 @@
           a.hidden = true;
         }
       }
-      // Windows and Linux: the hero button downloads directly. A Mac can be Apple silicon or
-      // Intel, which the browser does not say reliably, so it goes to the two choices.
-      if (os === "windows" || os === "linux") {
+      if (primary && (os === "windows" || os === "linux")) {
         const first = document.querySelector(`.platform[data-os="${os}"] .btn.primary`);
-        if (first && first.href.includes("/download/")) primaryHref = first.href;
+        if (first && first.href.includes("/download/")) primary.href = first.href;
       }
-      if (primaryHref) primary.href = primaryHref;
     } catch {
       // Offline or rate-limited: every button still points at the releases page.
     }
   }
 
+  // ---------- intro video, one per language ----------
+  const video = document.querySelector("[data-video]");
+  function pickVideo() {
+    if (!video || !video.paused) return;
+    const src = `video/intro-${lang}.mp4`;
+    const source = video.querySelector("source");
+    if (source && source.getAttribute("src") !== src) {
+      source.setAttribute("src", src);
+      video.poster = `video/poster-${lang}.webp`;
+      video.load();
+    }
+  }
+
   // ---------- departures board ----------
   const clock = document.querySelector("[data-clock]");
-  const tick = () => {
-    const d = new Date();
-    clock.textContent = `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
-  };
-  tick();
-  setInterval(tick, 15000);
+  if (clock) {
+    const tick = () => {
+      const d = new Date();
+      clock.textContent = `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+    };
+    tick();
+    setInterval(tick, 15000);
+  }
 
   // One reveal on load: each tile cycles through characters, then settles, row by row.
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!reduce) {
+  function flipBoard() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-";
-    const tiles = [...document.querySelectorAll("[data-board] .flap")];
-    tiles.forEach((tile, i) => {
+    const gen = generation;
+    [...document.querySelectorAll("[data-board] .flap")].forEach((tile, i) => {
       const final = tile.textContent;
-      tile.style.minWidth = `${final.length + 0.8}ch`;
       const row = Math.floor(i / 5);
       const start = 250 + row * 140 + (i % 5) * 45;
       const steps = 9 + (i % 4);
       let n = 0;
-      const scramble = () =>
-        final.replace(/[A-Za-z0-9]/g, () => CHARS[Math.floor(Math.random() * CHARS.length)]);
+      const scramble = () => final.replace(/[A-Za-z0-9]/g, () => CHARS[Math.floor(Math.random() * CHARS.length)]);
+      tile.style.minWidth = `${tile.getBoundingClientRect().width}px`;
       tile.textContent = scramble();
       setTimeout(function flip() {
+        // A language switch mid-reveal already wrote the new text: leave it.
+        if (gen !== generation) return;
         n += 1;
         if (n >= steps) {
           tile.textContent = final;
@@ -176,10 +221,26 @@
     });
   }
 
+  // ---------- guide: highlight the section in view ----------
+  const tocLinks = [...document.querySelectorAll(".toc a")];
+  if (tocLinks.length && "IntersectionObserver" in window) {
+    const byId = new Map(tocLinks.map((a) => [a.getAttribute("href").slice(1), a]));
+    const seen = new Map();
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) seen.set(e.target.id, e.isIntersecting);
+        const first = [...byId.keys()].find((id) => seen.get(id));
+        if (first) for (const [id, a] of byId) a.classList.toggle("on", id === first);
+      },
+      { rootMargin: "-80px 0px -55% 0px" },
+    );
+    for (const id of byId.keys()) {
+      const s = document.getElementById(id);
+      if (s) io.observe(s);
+    }
+  }
+
   // ---------- start ----------
-  const saved = store.get();
-  const initial = saved || ((navigator.language || "").toLowerCase().startsWith("vi") ? "vi" : "en");
-  setLang(initial);
-  if (primary && os === "mac") primary.href = "#download";
+  setLang(initialLang()).then(flipBoard);
   loadRelease();
 })();
