@@ -171,14 +171,20 @@
         <article class="platform" data-os="mac">
           <h3>macOS</h3>
           <p class="req" data-i18n="dl.mac.req">macOS 12 or later</p>
-          <a class="btn primary" data-asset="aarch64.dmg" href="https://github.com/Caoquyen1913/hangar-app/releases/latest" data-i18n="dl.mac.arm">Apple silicon (.dmg)</a>
+          <button class="btn primary" type="button" data-copy data-i18n="dl.copy">Copy install command</button>
+          <pre><code>curl -fsSL https://caoquyen1913.github.io/hangar-app/install.sh | sh</code></pre>
+          <p class="term" data-i18n="dl.mac.term">Paste it into Terminal: Hangar installs and opens with no macOS prompt, now and on later updates.</p>
+          <a class="alt" data-asset="aarch64.dmg" href="https://github.com/Caoquyen1913/hangar-app/releases/latest" data-i18n="dl.mac.arm">Apple silicon (.dmg)</a>
           <a class="alt" data-asset="x64.dmg" href="https://github.com/Caoquyen1913/hangar-app/releases/latest" data-i18n="dl.mac.intel">Intel Mac (.dmg)</a>
-          <p class="note" data-i18n="dl.mac.note">Not notarized yet: the first time macOS blocks Hangar, open System Settings › Privacy &amp; Security and choose Open Anyway.</p>
+          <p class="note" data-i18n="dl.mac.note">The .dmg is not notarized: the first time macOS blocks Hangar, open System Settings › Privacy &amp; Security and choose Open Anyway.</p>
         </article>
         <article class="platform" data-os="linux">
           <h3>Linux</h3>
           <p class="req" data-i18n="dl.linux.req">x86-64, X11 or Wayland</p>
-          <a class="btn primary" data-asset=".AppImage" href="https://github.com/Caoquyen1913/hangar-app/releases/latest" data-i18n="dl.linux.appimage">AppImage</a>
+          <button class="btn primary" type="button" data-copy data-i18n="dl.copy">Copy install command</button>
+          <pre><code>curl -fsSL https://caoquyen1913.github.io/hangar-app/install.sh | sh</code></pre>
+          <p class="term" data-i18n="dl.linux.term">Paste it into a terminal: it puts the AppImage in ~/.local/bin and adds Hangar to your app menu.</p>
+          <a class="alt" data-asset=".AppImage" href="https://github.com/Caoquyen1913/hangar-app/releases/latest" data-i18n="dl.linux.appimage">AppImage</a>
           <a class="alt" data-asset=".deb" href="https://github.com/Caoquyen1913/hangar-app/releases/latest" data-i18n="dl.linux.deb">Debian / Ubuntu (.deb)</a>
           <p class="note" data-i18n="dl.linux.note">Make the AppImage executable (`chmod +x`) and run it.</p>
         </article>

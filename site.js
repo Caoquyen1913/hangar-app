@@ -136,8 +136,23 @@
     document.querySelector(`.platform[data-os="${os}"]`)?.classList.add("is-you");
     document.querySelector(".platforms")?.classList.add("has-you");
   }
-  // A Mac can be Apple silicon or Intel, which the browser does not say reliably: show both.
-  if (primary && os === "mac") primary.href = "#download";
+  // macOS and Linux install with the curl command in their card, so send them there.
+  if (primary && (os === "mac" || os === "linux")) primary.href = "#download";
+
+  // ---------- copy the install command ----------
+  for (const btn of document.querySelectorAll("[data-copy]")) {
+    btn.addEventListener("click", async () => {
+      const cmd = btn.parentElement.querySelector("pre").textContent.trim();
+      try {
+        await navigator.clipboard.writeText(cmd);
+      } catch {
+        return; // No clipboard (http, old browser): the command stays visible to select by hand.
+      }
+      const label = btn.textContent;
+      btn.textContent = "✓";
+      setTimeout(() => (btn.textContent = label), 1500);
+    });
+  }
 
   // ---------- links from the latest release ----------
   async function loadRelease() {
@@ -160,7 +175,7 @@
           a.hidden = true;
         }
       }
-      if (primary && (os === "windows" || os === "linux")) {
+      if (primary && os === "windows") {
         const first = document.querySelector(`.platform[data-os="${os}"] .btn.primary`);
         if (first && first.href.includes("/download/")) primary.href = first.href;
       }
